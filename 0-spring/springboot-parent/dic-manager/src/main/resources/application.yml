@@ -1,0 +1,26 @@
+server:
+  port: 48082
+  servlet:
+    context-path: /dic
+
+
+spring:
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    # 方式一：  引用外部文件
+    #        url: jdbc:sqlite:D:/eclipse/xy.db
+    #方式二： 引用项目中的文件
+    url: jdbc:sqlite:E:\dev\sqllite/dic.sqllite
+  #    username:
+  #    password:
+  #开发时关闭缓存,不然没法看到实时页面
+  thymeleaf:
+    cache: false
+#    mode: LEGACYHTML5
+
+# Mybatis配置
+mybatis:
+  mapperLocations: classpath:mapper/**/*.xml
+  #configLocation: classpath:mybatis.xml
+
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+
+    <bean id="jobFactory" class="one.zpq.extend.MyJobFactory">
+    </bean>
+    <!--    <bean id="jobRecordListener" class="com.ice.quartz.listener.JobRecordListener"/>
+
+        <bean id="triggerRecordListener" class="com.ice.quartz.listener.TriggerRecordListener"/>-->
+
+    <bean id="DefaultQuartzScheduler" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!--<property name="dataSource" ref="defaultDataSource"/>-->
+        <property name="configLocation" value="classpath:extend/quartz.properties"/>
+        <property name="jobFactory" ref="jobFactory"/>
+        <property name="triggers">
+            <list>
+                <ref bean="secondTrigger"></ref>
+                <!--             <ref bean="dayTrigger"></ref>
+                             <ref bean="weekTrigger"></ref>
+                             <ref bean="monthTrigger"></ref>
+                             <ref bean="quarterTrigger"></ref>
+                             <ref bean="yearTrigger"></ref>-->
+            </list>
+        </property>
+        <!-- 使用注入方式使用springMVC bean -->
+<!--        <property name="schedulerContextAsMap">
+            <map>
+                <entry key="jobTriggerRecordMapper" value-ref="jobTriggerRecordMapper"></entry>
+            </map>
+        </property>-->
+        <!--        <property name="globalJobListeners" ref="jobRecordListener"></property>
+                <property name="globalTriggerListeners" ref="triggerRecordListener"></property>-->
+    </bean>
+
+
+
+    <import resource="classpath:extend/application-job1.xml"/>
+</beans>

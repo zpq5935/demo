@@ -1,0 +1,112 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>one.zpq</groupId>
+	<artifactId>zpq-maven-profiles-test</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<!-- <packaging>war</packaging> -->
+	<name>testproject</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+
+
+
+
+
+	<properties>
+		<port>9105</port>
+	</properties>
+
+
+
+
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+		<filters>
+			<filter>src/main/resources/dev/env.dev.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<!--打包时先排除掉三个文件夹 -->
+				<excludes>
+					<exclude>dev/*</exclude>
+					<exclude>prod/*</exclude>
+					<exclude>test/*</exclude>
+				</excludes>
+				<includes>
+					<!--如果有其他定义通用文件，需要包含进来 -->
+					<!--<include>messages/*</include> -->
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<!--这里是关键！ 根据不同的环境，把对应文件夹里的配置文件打包 -->
+				<directory>src/main/resources/${profiles.active}</directory>
+				<!-- 指定目标目录 -->
+				<targetPath>config</targetPath>
+				<!-- 指定替代占位符 -->
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+	<profiles>
+		<profile>
+			<!--不同环境Profile的唯一id -->
+			<id>dev</id>
+			<properties>
+				<!--profiles.active是自定义的字段，自定义字段可以有多个 -->
+				<profiles.active>dev</profiles.active>
+				<mvn.database.url>dev-localhost</mvn.database.url>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profiles.active>prod</profiles.active>
+				<mvn.database.url>prod-localhost</mvn.database.url>
+			</properties>
+			<!--activation用来指定激活方式，可以根据jdk环境，环境变量，文件的存在或缺失 -->
+			<activation>
+				<!--这个字段表示默认激活 -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active>
+				<mvn.database.url>test-localhost</mvn.database.url>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>

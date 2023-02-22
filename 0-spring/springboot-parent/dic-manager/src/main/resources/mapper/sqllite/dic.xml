@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="one.zpq.dicmanager.dao.DicDao">
+    <resultMap id="BaseResultMap" type="one.zpq.dicmanager.dao.po.DicPo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="c_spell" property="spell" jdbcType="VARCHAR"/>
+        <id column="c_speak" property="speak;" jdbcType="VARCHAR"/>
+        <id column="c_example" property="example" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="NewBaseResultMap" type="one.zpq.dicmanager.controller.vo.DicShowVo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="c_spell" property="spell" jdbcType="VARCHAR"/>
+        <id column="c_speak" property="speak;" jdbcType="VARCHAR"/>
+        <id column="c_example" property="example" jdbcType="VARCHAR"/>
+<!--        <ref></ref>-->
+    </resultMap>
+
+    <select id="listAll" resultMap="BaseResultMap">
+        select * from t_dic
+    </select>
+    <select id="listAllDetail" resultMap="BaseResultMap">
+        select
+        id ,c_spell ,c_speak ,c_example,
+        (select n_dic_id_slave from t_dic_rela t2 where t2.n_dic_id_main=t1.id) relaIds,
+        ()
+
+
+
+        from t_dic t1
+    </select>
+
+
+</mapper>

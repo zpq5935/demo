@@ -1,0 +1,7 @@
+server:
+  port:
+    38080
+  servlet:
+    content-path: sercurity-demo
+#  security:
+#    enable: false

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.UserMapper">
+
+	
+	
+	<insert id="saveUser" parameterType="pojo.User"
+		useGeneratedKeys="true">
+		insert into tb_user (name,sex,age)
+		values (#{name},#{sex},#{age})
+	</insert>
+
+	<select id="selectUser" parameterType="int" resultType="pojo.User">
+		select *
+		from tb_user where id = #{id}
+	</select>
+
+	<update id="updateUser" parameterType="pojo.User">
+		update tb_user
+		set name=#{name},sex=#{sex},age=#{age}
+		where id = #{id}
+	</update>
+
+	<delete id="deleteUser" parameterType="int">
+		delete from tb_user 
+		where id = #{id}
+	</delete>
+	
+	<select id="selectUser_Map" resultType="map">
+		select * from tb_user 
+	</select>
+	
+	<resultMap id="userResultMap" type="pojo.User">
+		<id property="id" column="user_id" />
+		<result property="name" column="user_name"/>
+		<result property="sex" column="user_sex"/>
+		<result property="age" column="user_age"/>
+	</resultMap>
+	
+	<select id="selectUser2_resultMap" resultMap="userResultMap">
+		select * from tb_user2
+	</select>
+
+	<!-- resultMap示例1 -->
+	<resultMap id="studentResultMap" type="pojo.Student">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="sex" column="sex" />
+		<result property="age" column="age" />
+		<association property="clazz_id" column="clazz_id"
+			javaType="pojo.Clazz" select="selectClazzWithId" />
+	</resultMap>
+	
+	<select id="selectClazzWithId" resultType="pojo.Clazz">
+		select * from tb_clazz where id=#{id}
+	</select>
+	
+	<select id="selectStudent" resultMap="studentResultMap">
+		select * from tb_student
+	</select>
+	<!-- resultMap示例2 -->
+	<resultMap id="clazzResultMap" type="pojo.Clazz">
+		<id property="id" column="id"/>
+		<result property="code" column="column"/>
+		<collection property="students" javaType="ArrayList"
+			column="id" ofType="pojo.Student"
+			select="selectStudentWithId"/>
+	</resultMap>
+	<select id="selectStudentWithId" resultType="pojo.Student">
+		select * from tb_student where clazz_id = #{id}
+	</select >
+	<select id="selectClazz" resultMap="clazzResultMap">
+		select * from tb_clazz
+	</select>
+</mapper>

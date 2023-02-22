@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"><!--映射文件 -->
+<!--<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">--> 	
+<hibernate-mapping package="po">
+	<class name="po.Student" table="stuinfo">
+		<id name="id"  column="id"> 
+			<generator class="identity"/>  
+		</id>   
+		<property name="sno" column="sno"/>
+		<property name="sname" column="sname"/>
+		<property name="department" column="department"/>
+		<property name="CET4" column="CET4"/>
+		<property name="CET6" column="CET6"/>
+	</class>
+</hibernate-mapping> 

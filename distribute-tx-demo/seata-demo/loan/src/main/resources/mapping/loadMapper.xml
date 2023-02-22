@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="one.zpq.IouMapper">
+    <select id="selectByUserId" parameterType="java.lang.String" resultType="one.zpq.Iou">
+        select id, user_id, balance
+        from iou
+        where user_id = #{userId}
+    </select>
+
+    <update id="updateBalance" parameterType="one.zpq.Iou">
+        update iou
+        <set>
+            balance = #{balance,jdbcType=DECIMAL},
+        </set>
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </update>
+</mapper>

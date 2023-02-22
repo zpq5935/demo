@@ -1,0 +1,16 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: zuul-demo
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+zuul:
+  routes:
+    demo1:
+      path: /pro/**
+      serviceId: provider
+  ignored-services: provider #忽略的服务

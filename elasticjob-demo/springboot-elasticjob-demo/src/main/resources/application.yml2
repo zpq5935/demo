@@ -1,0 +1,31 @@
+# Server
+server:
+  port: 48081
+  servlet:
+    context-path: /elastic
+
+elasticjob:
+  regCenter:
+    serverLists: 127.0.0.1:2182
+    namespace: elasticjob-lite-springboot
+    jobs:
+      simpleJob:
+#        elasticJobClass: org.apache.shardingsphere.elasticjob.lite.example.job.SpringBootSimpleJob
+        elasticJobClass: one.zpq.job.MyJob
+        cron: 0/5 * * * * ?
+        timeZone: GMT+08:00
+        shardingTotalCount: 3
+        shardingItemParameters: 0=Beijing,1=Shanghai,2=Guangzhou
+#      scriptJob:
+#        elasticJobType: SCRIPT
+#        cron: 0/10 * * * * ?
+#        shardingTotalCount: 3
+#        props:
+#          script.command.line: "echo SCRIPT Job: "
+#      manualScriptJob:
+#        elasticJobType: SCRIPT
+#        jobBootstrapBeanName: manualScriptJobBean
+#        shardingTotalCount: 9
+#        props:
+#          script.command.line: "echo Manual SCRIPT Job: "
+

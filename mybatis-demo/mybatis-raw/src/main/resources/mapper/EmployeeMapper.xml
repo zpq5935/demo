@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.EmployeeMapper">
+
+	<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
+
+	<select id="selectEmployeeByIdLike" resultType="domain.Employee">
+		select * from tb_employee where state = 'active'
+		<if test="id!=null">
+			and id = #{id}
+		</if>
+	</select>
+
+	<select id="selectEmployeeChoose" resultType="domain.Employee">
+		select * from tb_employee where state = 'active'
+		<choose>
+			<when test="id!=null">
+				and id = #{id}
+			</when>
+			<when test="loginname!=null and password!=null">
+				and password = #{password} and loginname =
+				#{loginname}
+			</when>
+			<otherwise>
+				and sex = '男'
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectEmployeeLike" resultType="domain.Employee">
+		select * from tb_employee 
+		<where>
+			<if test="state!=null">
+				state = #{state}
+			</if>
+			<if test="id!=null">
+				and id = #{id}
+			</if>
+			<if test="loginname!=null and password!=null">
+				and password = #{password} and loginname = #{loginname}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertEmployee" parameterType="domain.Employee">
+		insert into tb_employee(loginname,password,sex,age,phone,sal,state)
+		values(#{loginname},#{password},#{sex},#{age},#{phone},#{sal},#{state} )
+	</insert>
+
+
+
+
+</mapper>
