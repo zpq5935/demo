@@ -13,4 +13,10 @@ zuul:
     demo1:
       path: /pro/**
       serviceId: provider
-  ignored-services: provider #忽略的服务
+#  ignored-services: provider #忽略的服务
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: routes,filters # 2.0版本 需要加这个配置
