@@ -13,6 +13,7 @@ zuul:
     demo1:
       path: /pro/**
       serviceId: provider
+  sensitive-headers: Cookie,Set-Cookie # 黑名单
 #  ignored-services: provider #忽略的服务
 
 management:
