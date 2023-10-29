@@ -11,6 +11,11 @@
         <module>dubbo-doot-demo</module>
         <module>dubbo-origin-demo</module>
     </modules>
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
     <packaging>pom</packaging>
 
 </project>
