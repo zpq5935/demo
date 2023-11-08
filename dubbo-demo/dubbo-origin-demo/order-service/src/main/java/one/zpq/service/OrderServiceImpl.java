@@ -2,7 +2,7 @@ package one.zpq.service;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import one.zpq.service.IUserService;
+import one.zpq.vo.AccountInput;
 import one.zpq.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,11 @@ import java.util.List;
 @Service
 @Slf4j
 public class OrderServiceImpl {
+//    @DubboReference
     @Autowired
     private IUserService userService;
+    @Autowired
+    private AccountService accountService;
 
     /**
      * 223
@@ -30,7 +33,9 @@ public class OrderServiceImpl {
      */
     public void listUsers() {
         List<UserVo> userVoList = userService.listUser();
-        userVoList.forEach((ele) -> System.out.println(ele));
+        userVoList.forEach(System.out::println);
+
+        accountService.listAccount(new AccountInput());
     }
 
     public void addUsers() {

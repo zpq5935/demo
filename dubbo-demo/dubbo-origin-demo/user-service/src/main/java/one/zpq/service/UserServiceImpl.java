@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<UserVo> listUser() {
-        System.out.println("userService in");
+        log.info("userService in");
         List<UserVo> userVoList = new ArrayList<>(10);
         for (int i = 0; i < 10; i++) {
             UserVo userVo = new UserVo();
@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        System.out.println("userService out");
+        log.info("userService out");
 
         return userVoList;
     }

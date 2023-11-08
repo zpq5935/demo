@@ -7,11 +7,14 @@
     <!-- provider's application name, used for tracing dependency relationship -->
     <dubbo:application name="user-service"/>
     <!-- use multicast registry center to export service -->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:registry id="reg1" address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:registry id="reg2" address="zookeeper://127.0.0.1:2182"/>
     <!-- use dubbo protocol to export service on port 20880 -->
     <dubbo:protocol name="dubbo" port="20880"/>
     <!-- service implementation, as same as regular local bean -->
     <bean id="userService" class="one.zpq.service.UserServiceImpl"/>
+    <bean id="accountService" class="one.zpq.service.AccountServiceImpl"/>
     <!-- declare the service interface to be exported -->
-    <dubbo:service interface="one.zpq.service.IUserService" ref="userService"/>
+    <dubbo:service interface="one.zpq.service.IUserService" registry="reg1" ref="userService"/>
+    <dubbo:service interface="one.zpq.service.AccountService" registry="reg2" ref="accountService"/>
 </beans>
