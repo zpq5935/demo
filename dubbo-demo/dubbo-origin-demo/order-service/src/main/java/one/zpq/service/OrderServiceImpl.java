@@ -2,6 +2,7 @@ package one.zpq.service;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import one.zpq.request.UserListReq;
 import one.zpq.vo.AccountInput;
 import one.zpq.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,9 @@ public class OrderServiceImpl {
      * @explain:123
      */
     public void listUsers() {
-        List<UserVo> userVoList = userService.listUser();
+        UserListReq userListReq = new UserListReq();
+        userListReq.setGroupId("test");
+        List<UserVo> userVoList = userService.listUser(userListReq);
         userVoList.forEach(System.out::println);
 
         accountService.listAccount(new AccountInput());

@@ -14,6 +14,6 @@
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
     <!-- generate proxy for the remote service, then demoService can be used in the same way as the
     local regular interface -->
-    <dubbo:reference id="userService" check="false" interface="one.zpq.service.IUserService" timeout="6000" retries="5"/>
+    <dubbo:reference id="userService" check="false" interface="one.zpq.service.IUserService" timeout="1000" retries="5" loadbalance="custom"/>
     <dubbo:reference id="accService" check="false" interface="one.zpq.service.AccountService" timeout="6000" retries="5"/>
 </beans>

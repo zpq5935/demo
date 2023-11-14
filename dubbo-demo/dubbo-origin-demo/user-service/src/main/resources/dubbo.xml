@@ -15,6 +15,6 @@
     <bean id="userService" class="one.zpq.service.UserServiceImpl"/>
     <bean id="accountService" class="one.zpq.service.AccountServiceImpl"/>
     <!-- declare the service interface to be exported -->
-    <dubbo:service interface="one.zpq.service.IUserService" registry="reg1" ref="userService"/>
+    <dubbo:service interface="one.zpq.service.IUserService" registry="reg1" ref="userService" timeout="1"/>
     <dubbo:service interface="one.zpq.service.AccountService" registry="reg2" ref="accountService"/>
 </beans>
