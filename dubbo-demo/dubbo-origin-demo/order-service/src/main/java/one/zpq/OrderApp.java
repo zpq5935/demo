@@ -1,15 +1,15 @@
 package one.zpq;
 
-import lombok.extern.slf4j.Slf4j;
-import one.zpq.service.OrderServiceImpl;
-import one.zpq.vo.UserVo;
+import java.io.IOException;
+
+import org.apache.dubbo.rpc.service.EchoService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import one.zpq.service.IUserService;
+import one.zpq.service.OrderServiceImpl;
 
 /**
  * TODO
@@ -24,8 +24,18 @@ public class OrderApp {
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
         System.out.println("Started");
         OrderServiceImpl orderService = context.getBean(OrderServiceImpl.class);
+        testEchoService(context.getBean(IUserService.class));
         orderService.listUsers();
+
+
+
         System.in.read();
+    }
+
+    private static void testEchoService(Object service) {
+        Object echoResult = ((EchoService)service).$echo("ok");
+        log.info("echoTest-rsp:{}",echoResult);
+        assert(echoResult.equals("ok"));
     }
 
     @Test
