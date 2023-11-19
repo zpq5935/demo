@@ -33,6 +33,8 @@ public class OrderApp {
     }
 
     private static void testEchoService(Object service) {
+        if (!(service instanceof EchoService))
+            return;
         Object echoResult = ((EchoService)service).$echo("ok");
         log.info("echoTest-rsp:{}",echoResult);
         assert(echoResult.equals("ok"));
