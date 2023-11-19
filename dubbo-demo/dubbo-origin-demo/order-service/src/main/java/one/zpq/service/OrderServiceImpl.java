@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import one.zpq.request.UserListReq;
 import one.zpq.vo.AccountInput;
 import one.zpq.vo.UserVo;
+import org.apache.dubbo.common.constants.CommonConstants;
+import org.apache.dubbo.rpc.Constants;
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +38,10 @@ public class OrderServiceImpl {
     public void listUsers() {
         UserListReq userListReq = new UserListReq();
         userListReq.setGroupId("test");
+
+
+        RpcContext.getContext().setAttachment(Constants.FORCE_USE_TAG,"true");
+        RpcContext.getContext().setAttachment(CommonConstants.TAG_KEY,"test");
         List<UserVo> userVoList = userService.listUser(userListReq);
         userVoList.forEach(System.out::println);
 
