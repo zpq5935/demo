@@ -1,9 +1,9 @@
 dubbo:
   application:
     logger: slf4j
-    name: DubboDemoApplication
+    name: UserApp
   registry:
     address: zookeeper://${zookeeper.address:127.0.0.1}:2181
   protocol:
     name: dubbo
-    port: 20081
+    port: 20082
