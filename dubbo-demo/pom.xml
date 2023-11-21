@@ -8,7 +8,7 @@
     <artifactId>dubbo-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>dubbo-doot-demo</module>
+        <module>dubbo-boot-demo</module>
         <module>dubbo-origin-demo</module>
     </modules>
     <properties>
